@@ -1,0 +1,60 @@
+﻿@model IEnumerable<TeamEnigma.Models.Item>
+
+@{
+    ViewData["Title"] = "Items you have Listed for sale";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">List items</a>
+</p>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        You have no items listed. <a asp-action="Create">Click here</a> to list an item for sale!
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-2 mt-5">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm" style="max-width: 300px; margin: 0 auto;">
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" class="card-img-top" alt="Item image" style="height: 150px; object-fit: cover;">
+                    }
+                    <div class="card-body p-2 text-center">
+                        <h6 class="card-title mb-1">@item.Name</h6>
+                        <h6 class="text-primary mb-2">$@item.Price.ToString("N2")</h6>
+                        <p class="card-text small text-muted mb-2">@item.Description</p>
+                        <ul class="list-group list-group-flush small">
+                            <li class="list-group-item p-1 d-flex justify-content-center align-items-center">
+                                <strong>Category:</strong> <span class="ms-1">@item.Category</span>
+                            </li>
+                            <li class="list-group-item p-1 d-flex justify-content-center align-items-center">
+                                <strong>Location:</strong> <span class="ms-1">@item.Location</span>
+                            </li>
+                            <li class="list-group-item p-1 d-flex justify-content-center align-items-center">
+                                <strong>Status:</strong> <span class="ms-1">@item.Status</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white p-2">
+                        <div class="d-flex justify-content-center align-items-center gap-2">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">View</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <form asp-action="AddToCart" asp-controller="Cart" method="post">
+                                <input type="hidden" name="itemId" value="@item.Id" />
+                                <button type="submit" class="btn btn-sm btn-primary">Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
