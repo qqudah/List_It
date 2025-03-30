@@ -3,72 +3,101 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h1>Edit</h1>
-
-<h4>Item</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactNumber" class="control-label"></label>
-                <input asp-for="ContactNumber" class="form-control" />
-                <span asp-validation-for="ContactNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#FFF2F2] flex flex-col min-h-screen">
+    <div class="w-full flex justify-between items-center px-8 mt-4">
+        <div class="relative">
+            <select class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded">
+                <option>Dropdown</option>
+            </select>
+        </div>
+        <div class="relative flex-1 mx-4">
+            <input type="text" placeholder="Search" class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded-full w-full placeholder-[#FFF2F2]">
+            <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-[#FFF2F2]"></i>
+        </div>
+        <div class="flex items-center space-x-4">
+            <i class="fas fa-filter text-3xl text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full"></i>
+            <a asp-controller="Cart" asp-action="Index" class="text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full">
+                <i class="fas fa-shopping-cart text-3xl"></i>
+            </a>
+        </div>
     </div>
-</div>
-
-<div >
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <div class="flex-grow flex items-center justify-center w-full">
+        <div class="bg-[#A9B5DF] p-8 rounded-lg mt-8 w-11/12 md:w-3/4 lg:w-1/2">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label asp-for="Name" class="block text-[#1A1A1A] font-[Inter] text-sm">Name</label>
+                        <input asp-for="Name" type="text" class="w-full p-2 rounded bg-[#FFF2F2] text-[#1A1A1A]" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="ContactNumber" class="block text-[#1A1A1A] font-[Inter] text-sm">Contact Number</label>
+                        <input asp-for="ContactNumber" class="w-full p-2 rounded bg-[#FFF2F2] text-[#1A1A1A]" />
+                        <span asp-validation-for="ContactNumber" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Description" class="block text-[#1A1A1A] font-[Inter] text-sm">Description</label>
+                        <input asp-for="Description" class="w-full p-2 rounded bg-[#FFF2F2] text-[#1A1A1A]" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="ImageUrl" class="block text-[#1A1A1A] font-[Inter] text-sm">Image URL</label>
+                        <input asp-for="ImageUrl" class="w-full p-2 rounded bg-[#FFF2F2] text-[#1A1A1A]" />
+                        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Price" class="block text-[#1A1A1A] font-[Inter] text-sm">Price</label>
+                        <input asp-for="Price" class="w-full p-2 rounded bg-[#FFF2F2] text-[#1A1A1A]" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Category" class="block text-[#1A1A1A] font-[Inter] text-sm">Category</label>
+                        <select asp-for="Category" class="w-full p-2 rounded bg-[#FFF2F2] text-[#1A1A1A]">
+                            <option>Electronic</option>
+                            <option>Clothing</option>
+                            <option>Food</option>
+                            <option>Other</option>
+                        </select>
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Status" class="block text-[#1A1A1A] font-[Inter] text-sm">Status</label>
+                        <select asp-for="Status" class="w-full p-2 rounded bg-[#FFF2F2] text-[#1A1A1A]">
+                            <option>Available</option>
+                            <option>Unavailable</option>
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Location" class="block text-[#1A1A1A] font-[Inter] text-sm">Location</label>
+                        <input asp-for="Location" class="w-full p-2 rounded bg-[#FFF2F2] text-[#1A1A1A]" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <select asp-for="UserId" class="w-full p-2 rounded bg-[#FFF2F2] text-[#1A1A1A]" asp-items="ViewBag.UserId" hidden></select>
+                        <span asp-validation-for="UserId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="flex justify-between mt-4">
+                    <button type="button" onclick="window.history.back()" class="bg-[#7886C7] text-[#FFF2F2] font-[Inter] py-2 px-4 rounded">Go Back</button>
+                    <input type="submit" value="ReList IT" class="bg-[#7886C7] text-[#FFF2F2] font-[Inter] py-2 px-4 rounded" />
+                </div>
+            </form>
+        </div>
+    </div>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>

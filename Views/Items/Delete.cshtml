@@ -3,73 +3,89 @@
 @{
     ViewData["Title"] = "Delete";
 }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - TeamEnigma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#FFF2F2] flex flex-col items-center justify-start min-h-screen pb-8">
+    <div class="w-full flex justify-between items-center px-8 mt-4">
+        <div class="relative">
+            <select class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded">
+                <option>Dropdown</option>
+            </select>
+        </div>
+        <div class="relative flex-1 mx-4">
+            <input type="text" placeholder="Search" class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded-full w-full placeholder-[#FFF2F2]">
+            <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-[#FFF2F2]"></i>
+        </div>
+        <div class="flex items-center space-x-4">
+            <i class="fas fa-filter text-3xl text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full"></i>
+            <a asp-controller="Cart" asp-action="Index" class="text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full">
+                <i class="fas fa-shopping-cart text-3xl"></i>
+            </a>
+        </div>
+    </div>
+    <div class="flex items-center justify-center w-full flex-1 px-4 py-8">
+        <div class="w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg space-y-6">
 
-<h1>Delete</h1>
+            <div class="w-full bg-[#e0e0e0] h-64 flex items-center justify-center mb-6 rounded-lg">
+                <img src="@Model.ImageUrl" alt="Item Image" class="w-full h-full object-cover rounded-lg opacity-90" />
+            </div>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Item</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContactNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
-</div>
+            <h2 class="text-[#8a7dbf] text-2xl font-semibold text-center">Are you sure you want to delete this item?</h2>
+            <p class="text-[#8a7dbf] text-lg text-center">This action cannot be undone.</p>
+
+            <div class="space-y-4">
+                <h4 class="text-[#8a7dbf] font-semibold text-center">Item Details</h4>
+                <hr class="border-[#4F378A]" />
+                <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Name:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Name)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Description:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Description)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Price:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Price)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Status:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Status)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Contact Number:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.ContactNumber)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Category:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Category)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Location:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Location)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]" hidden>User:</dt>
+                        <dd class="text-[#2D336B]" hidden>@Html.DisplayFor(model => model.User.Id)</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <div class="flex space-x-4 w-full">
+                <button type="button" onclick="window.history.back()" class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded-lg w-full">Go Back</button>
+                <form asp-action="Delete" class="w-full">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="bg-[#FF4F5A] text-[#FFF2F2] py-2 px-4 rounded-lg w-full" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
