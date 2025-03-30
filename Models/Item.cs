@@ -20,8 +20,8 @@ namespace TeamEnigma.Models
         public decimal Price { get; set; }
 
         [Required]
-        [RegularExpression("^(Available|Sold)$", ErrorMessage = "Status must be either 'Available' or 'Sold'.")]
-        public string Status { get; set; } // Available, Sold
+        
+        public Status Status { get; set; } // Available, Sold
 
         [Required]
         [Phone(ErrorMessage = "Invalid phone number format.")]
@@ -32,8 +32,7 @@ namespace TeamEnigma.Models
         public string ImageUrl { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "Category cannot exceed 50 characters.")]
-        public string Category { get; set; }
+        public Category Category { get; set; }
         
         [Required]
         [StringLength(100, ErrorMessage = "Location cannot exceed 100 characters.")]
