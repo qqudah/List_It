@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<TeamEnigma.Models.Item>
 
 @{
-    ViewData["Title"] = "Items you have Listed for sale";
+    ViewData["Title"] = "List items";
 }
 
-<h1>Index</h1>
+<h1 style="color: #2D336B;">Items you have Listed for sale</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-success">List items</a>
+    <a asp-action="Create" class="btn" style="background-color: #7886C7; color: white;">List items</a>
 </p>
 
 @if (Model == null || !Model.Any())
@@ -18,7 +18,7 @@
 }
 else
 {
-    <div class="row row-cols-1 row-cols-md-3 g-2 mt-5">
+    <div class="row row-cols-1 row-cols-md-3 g-2 mt-5 justify-content-start">
         @foreach (var item in Model)
         {
             <div class="col">
@@ -27,30 +27,27 @@ else
                     {
                         <img src="@item.ImageUrl" class="card-img-top" alt="Item image" style="height: 150px; object-fit: cover;">
                     }
-                    <div class="card-body p-2 text-center">
+                    <div class="card-body p-2 text-start">
                         <h6 class="card-title mb-1">@item.Name</h6>
                         <h6 class="text-primary mb-2">$@item.Price.ToString("N2")</h6>
-                        <p class="card-text small text-muted mb-2">@item.Description</p>
+                       
                         <ul class="list-group list-group-flush small">
-                            <li class="list-group-item p-1 d-flex justify-content-center align-items-center">
-                                <strong>Category:</strong> <span class="ms-1">@item.Category</span>
-                            </li>
-                            <li class="list-group-item p-1 d-flex justify-content-center align-items-center">
-                                <strong>Location:</strong> <span class="ms-1">@item.Location</span>
-                            </li>
-                            <li class="list-group-item p-1 d-flex justify-content-center align-items-center">
+                            
+                            <li class="list-group-item p-1 d-flex justify-content-start align-items-center">
                                 <strong>Status:</strong> <span class="ms-1">@item.Status</span>
                             </li>
                         </ul>
                     </div>
                     <div class="card-footer bg-white p-2">
-                        <div class="d-flex justify-content-center align-items-center gap-2">
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">View</a>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
-                            <form asp-action="AddToCart" asp-controller="Cart" method="post">
-                                <input type="hidden" name="itemId" value="@item.Id" />
-                                <button type="submit" class="btn btn-sm btn-primary">Cart</button>
-                            </form>
+                        <div class="d-flex justify-content-end align-items-center gap-2">
+
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary" title="Edit" style="background-color: #7886C7; color: white; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#6a78a9'" onmouseout="this.style.backgroundColor='#7886C7'">
+                                <i class="bi bi-pencil" style="color: white;"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                            
                         </div>
                     </div>
                 </div>
