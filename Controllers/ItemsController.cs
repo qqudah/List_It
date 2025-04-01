@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,17 +15,31 @@ namespace TeamEnigma.Controllers
     [Authorize]
     public class ItemsController : Controller
     {
-        
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public ItemsController(ApplicationDbContext context)
+        public ItemsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
 
 
 
-        
+        //GET: Items/sell
+        public async Task<IActionResult> Sell()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Challenge(); // Redirects to login if the user is not authenticated
+            }
+            var userItems = _context.Item
+                    .Include(i => i.User) // Ensure navigation property is loaded
+                    .Where(i => i.UserId == user.Id); // Filter items by logged-in user's ID
+
+            return View(await userItems.ToListAsync());
+        }
 
 
 
