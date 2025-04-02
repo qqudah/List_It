@@ -4,7 +4,7 @@
     ViewData["Title"] = "List items";
 }
 
-<h1 style="color: #2D336B;">Items you have Listed for sale</h1>
+<h2 style="color: #2D336B; font-size: 36px;">Items you have Listed for sale</h2>
 
 <p>
     <a asp-action="Create" class="btn" style="background-color: #7886C7; color: white;">List items</a>
@@ -18,7 +18,7 @@
 }
 else
 {
-    <div class="row row-cols-1 row-cols-md-3 g-2 mt-5 justify-content-start">
+    <div class="row row-cols-1 row-cols-md-3 g-3 mt-5 justify-content-start">
         @foreach (var item in Model)
         {
             <div class="col">
