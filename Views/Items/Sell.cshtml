@@ -4,7 +4,29 @@
     ViewData["Title"] = "List items";
 }
 
+
 <h2 style="color: #2D336B; font-size: 36px;">Items you have Listed for sale</h2>
+<div class="w-full flex justify-between items-center px-8 mt-4">
+    <div class="relative">
+        <select class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded">
+            <option>Dropdown</option>
+        </select>
+    </div>
+    <div class="relative flex-1 mx-4">
+        <input type="text" placeholder="Search" class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded-full w-full placeholder-[#FFF2F2]">
+        <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-[#FFF2F2]"></i>
+    </div>
+    <div class="flex items-center space-x-4">
+        <i class="fas fa-filter text-3xl text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full"></i>
+        <a asp-controller="Cart" asp-action="Index" class="text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full">
+            <i class="fas fa-shopping-cart text-3xl"></i>
+        </a>
+    </div>
+</div>
+
+
+<h1 style="color: #2D336B;">Items you have Listed for sale</h1>
+
 
 <p>
     <a asp-action="Create" class="btn" style="background-color: #7886C7; color: white;">List items</a>

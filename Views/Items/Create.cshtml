@@ -3,82 +3,102 @@
 @{
     ViewData["Title"] = "Create";
 }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - TeamEnigma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#FFF2F2] flex flex-col items-center justify-start min-h-screen pb-8">
+    <div class="flex items-center justify-center w-full flex-1 px-4 py-8">
+        <div class="w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg space-y-6">
 
-<h1>Create</h1>
+            <h2 class="text-[#8a7dbf] text-2xl font-semibold text-center">Create a New Item</h2>
+            <p class="text-[#8a7dbf] text-lg text-center">Fill in the details below to create a new item.</p>
 
-<h4>Item</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" class="form-control">
-                    <option value="">Select Status</option>
-                    <option value="Available">Available</option>
-                    <option value="Sold">Sold</option>
-                </select>
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactNumber" class="control-label"></label>
-                <input asp-for="ContactNumber" class="form-control" />
-                <span asp-validation-for="ContactNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
-                <span asp-validation-for="ImageUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <select asp-for="Category" asp-items="ViewBag.CategoryList" class="form-control">
-                    <option value="">Select a Category</option>
-                    <option value="Electronics">Electronics</option>
-                    <option value="Clothing">Clothing</option>
-                    <option value="Food">Food</option>
-                    <option value="Other">Other</option>
+            <form asp-action="Create" class="space-y-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+                <div class="form-group space-y-2">
+                    <label asp-for="Name" class="text-[#8a7dbf] font-medium">Item Name</label>
+                    <input asp-for="Name" class="form-control border-2 rounded-lg p-2 w-full" placeholder="Enter item name" />
+                    <span asp-validation-for="Name" class="text-danger text-sm"></span>
+                </div>
 
-                </select>
-                <span asp-validation-for="Category" class="text-danger"></span>
+                <div class="form-group space-y-2">
+                    <label asp-for="Description" class="text-[#8a7dbf] font-medium">Description</label>
+                    <input asp-for="Description" class="form-control border-2 rounded-lg p-2 w-full" placeholder="Enter description" />
+                    <span asp-validation-for="Description" class="text-danger text-sm"></span>
+                </div>
+
+                <div class="form-group space-y-2">
+                    <label asp-for="Price" class="text-[#8a7dbf] font-medium">Price</label>
+                    <input asp-for="Price" class="form-control border-2 rounded-lg p-2 w-full" placeholder="Enter price" />
+                    <span asp-validation-for="Price" class="text-danger text-sm"></span>
+                </div>
+
+                <div class="form-group space-y-2">
+                    <label asp-for="Status" class="text-[#8a7dbf] font-medium">Status</label>
+                    <select asp-for="Status" class="form-control border-2 rounded-lg p-2 w-full">
+                        <option value="">Select Status</option>
+                        <option value="Available">Available</option>
+                        <option value="Sold">Sold</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger text-sm"></span>
+                </div>
+
+                <div class="form-group space-y-2">
+                    <label asp-for="ContactNumber" class="text-[#8a7dbf] font-medium">Contact Number</label>
+                    <input asp-for="ContactNumber" class="form-control border-2 rounded-lg p-2 w-full" placeholder="Enter contact number" />
+                    <span asp-validation-for="ContactNumber" class="text-danger text-sm"></span>
+                </div>
+
+                <div class="form-group space-y-2">
+                    <label asp-for="ImageUrl" class="text-[#8a7dbf] font-medium">Image URL</label>
+                    <input asp-for="ImageUrl" class="form-control border-2 rounded-lg p-2 w-full" placeholder="Enter image URL" />
+                    <span asp-validation-for="ImageUrl" class="text-danger text-sm"></span>
+                </div>
+
+                <div class="form-group space-y-2">
+                    <label asp-for="Category" class="text-[#8a7dbf] font-medium">Category</label>
+                    <select asp-for="Category" asp-items="ViewBag.CategoryList" class="form-control border-2 rounded-lg p-2 w-full">
+                        <option value="">Select a Category</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Food">Food</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span asp-validation-for="Category" class="text-danger text-sm"></span>
+                </div>
+
+                <div class="form-group space-y-2">
+                    <label asp-for="Location" class="text-[#8a7dbf] font-medium">Location</label>
+                    <input asp-for="Location" class="form-control border-2 rounded-lg p-2 w-full" placeholder="Enter location" />
+                    <span asp-validation-for="Location" class="text-danger text-sm"></span>
+                </div>
+
+                <div class="form-group space-y-2">
+                    <label asp-for="UserId" class="text-[#8a7dbf] font-medium">User</label>
+                    <select asp-for="UserId" class="form-control border-2 rounded-lg p-2 w-full" asp-items="ViewBag.UserId"></select>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded-lg w-full">Create Item</button>
+                </div>
+            </form>
+
+            <div class="mt-6 text-center">
+                <a href="@Url.Action("Index")" class="text-[#7886C7]">Back to List</a>
             </div>
-            <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</body>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
