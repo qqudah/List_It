@@ -39,7 +39,7 @@ namespace TeamEnigma
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication(); // ? Ensure authentication middleware is enabled
             app.UseAuthorization();
 
             app.MapControllerRoute(
