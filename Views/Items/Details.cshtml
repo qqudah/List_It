@@ -1,72 +1,68 @@
 ﻿@model TeamEnigma.Models.Item
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Delete";
 }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - TeamEnigma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#FFF2F2] flex flex-col items-center justify-start min-h-screen pb-8">
+    <div class="flex items-center justify-center w-full flex-1 px-4 py-8">
+        <div class="w-full max-w-4xl bg-white p-6 rounded-lg shadow-lg space-y-6">
 
-<h1>Details</h1>
+            <div class="w-full bg-[#e0e0e0] h-64 flex items-center justify-center mb-6 rounded-lg">
+                <img src="@Model.ImageUrl" alt="Item Image" class="w-full h-full object-cover rounded-lg opacity-90" />
+            </div>
 
-<div>
-    <h4>Item</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ContactNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+            <h2 class="text-[#8a7dbf] text-2xl font-semibold text-center">Item Details</h2>
+
+            <div class="space-y-4">
+                <hr class="border-[#4F378A]" />
+                <dl class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Name:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Name)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Description:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Description)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Price:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Price)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Status:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Status)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Contact Number:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.ContactNumber)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Category:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Category)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]">Location:</dt>
+                        <dd class="text-[#2D336B]">@Html.DisplayFor(model => model.Location)</dd>
+                    </div>
+                    <div>
+                        <dt class="font-medium text-[#8a7dbf]" hidden>User:</dt>
+                        <dd class="text-[#2D336B]" hidden>@Html.DisplayFor(model => model.User.Id)</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <div class="flex space-x-4 w-full">
+                <button type="button" onclick="window.history.back()" class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded-lg w-full">Go Back</button>
+            </div>
+        </div>
+    </div>
+
+</body>
