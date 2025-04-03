@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -76,8 +77,16 @@ namespace TeamEnigma.Controllers
         // GET: Items/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            // Retrieve the logged-in user's ID
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Pass the UserId to the view model or the view directly
+            var model = new Item
+            {
+                UserId = userId
+            };
+
+            return View(model);
         }
 
         // POST: Items/Create
