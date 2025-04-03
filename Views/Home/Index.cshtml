@@ -1,8 +1,137 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #FFF2F2;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2D336B;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            border-bottom-left-radius: 15px; 
+            border-bottom-right-radius: 15px; 
+        }
+
+        .logo {
+            font-size: 40px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 2px;
+        }
+
+        .banner {
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+            margin-top: 80px; 
+        }
+
+            .banner img {
+                width: 100%;
+                height: auto;
+                border-radius: 15px;
+            }
+
+        .banner-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(45, 51, 107, 0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 24px;
+            max-width: 80%;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        main {
+            text-align: center;
+            padding: 40px;
+        }
+
+            main h1 {
+                font-size: 40px;
+                font-weight: bold;
+                color: #2D336B;
+                font-family: 'Poppins', sans-serif;
+            }
+
+        footer {
+            background-color: #2D336B;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 15px; 
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+            .footer-links a {
+                color: #A9B5DF;
+                text-decoration: none;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+        .shop-now {
+            font-size: 40px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="./index.html" class="logo">LIST IT</a>
+    </header>
+
+    <div class="banner">
+        <img src="https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Homepage Banner" id="bannerImage">
+        <div class="banner-text">
+            Welcome to LIST IT, the ultimate platform for buying and selling online. Browse through various categories, connect with sellers, and find the best deals tailored for you. Start exploring today!
+            <br><br>
+            Find the Best Deals on Your Favorite Items!
+        </div>
+    </div>
+
+    <main>
+        <h1>Explore More Deals and Offers!</h1>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <!--<a href="#shop" class="shop-now">Shop Now</a>-->
+            <a href="@Url.Action("Sell", "Items")" class="shop-now">Shop Now</a>
+            <a href="#help">I Need Help</a>
+        </div>
+    </footer>
+</body>
+
+</html>
