@@ -26,34 +26,57 @@ namespace TeamEnigma.Controllers
         }
 
 
+        // Common logic for search and category filtering
+        private IQueryable<Item> ApplyFilters(string search, Category? category)
+        {
+            var items = _context.Item.Include(i => i.User).AsQueryable();
 
-        //GET: Items/sell
-        public async Task<IActionResult> Sell()
+            if (!string.IsNullOrEmpty(search))
+            {
+                items = items.Where(i =>
+                    i.Name.Contains(search) ||
+                    i.Location.Contains(search)
+                );
+            }
+
+            if (category.HasValue)
+            {
+                items = items.Where(i => i.Category == category.Value);
+            }
+
+            return items;
+        }
+
+        // GET: Items/sell
+        public async Task<IActionResult> Sell(string search, Category? category)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return Challenge(); // Redirects to login if the user is not authenticated
             }
-            var userItems = _context.Item
-                    .Include(i => i.User) // Ensure navigation property is loaded
-                    .Where(i => i.UserId == user.Id); // Filter items by logged-in user's ID
+
+            // Apply filters and also ensure items belong to the logged-in user
+            var userItems = ApplyFilters(search, category)
+                            .Where(i => i.UserId == user.Id); // Filter by user ID
+
+            ViewBag.SelectedCategory = category;
+            ViewBag.SearchQuery = search;
 
             return View(await userItems.ToListAsync());
         }
 
-
-
-
-
-
-
         // GET: Items
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search, Category? category)
         {
-            var applicationDbContext = _context.Item.Include(i => i.User);
-            return View(await applicationDbContext.ToListAsync());
+            var items = ApplyFilters(search, category); // Apply filters for general items
+
+            ViewBag.SelectedCategory = category;
+            ViewBag.SearchQuery = search;
+
+            return View(await items.ToListAsync());
         }
+
 
         // GET: Items/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -190,7 +213,7 @@ namespace TeamEnigma.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Sell));
         }
 
         private bool ItemExists(int id)

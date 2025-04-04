@@ -4,24 +4,65 @@
     ViewData["Title"] = "List items";
 }
 
+    <style>
+        /* Custom Alert Style */
+        .custom-alert {
+        background-color: #A9B5DF; /* Custom yellow color */
+            color: #333333; /* Dark text for contrast */
+        border: 1px solid #2d336b; /* Darker yellow border */
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .custom-alert a {
+                color: #2d336b; /* A contrasting color for the link */
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+                .custom-alert a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+
+
+
 
 <h2 style="color: #2D336B; font-size: 36px;">Items you have Listed for sale</h2>
 <div class="w-full flex justify-between items-center px-8 mt-4">
-    <div class="relative">
-        <select class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded">
-            <option>Dropdown</option>
-        </select>
-    </div>
-    <div class="relative flex-1 mx-4">
-        <input type="text" placeholder="Search" class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded-full w-full placeholder-[#FFF2F2]">
-        <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-[#FFF2F2]"></i>
-    </div>
-    <div class="flex items-center space-x-4">
-        <i class="fas fa-filter text-3xl text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full"></i>
-        <a asp-controller="Cart" asp-action="Index" class="text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full">
-            <i class="fas fa-shopping-cart text-3xl"></i>
-        </a>
-    </div>
+    <form asp-action="Sell" method="get" class="flex w-full items-center space-x-4">
+
+        <!-- Category Dropdown -->
+        <div class="relative">
+            <select name="category" onchange="this.form.submit()" class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded">
+                <option value="">All Categories</option>
+                @foreach (var c in Enum.GetValues(typeof(TeamEnigma.Models.Category)))
+                {
+                    var isSelected = ViewBag.SelectedCategory != null && (TeamEnigma.Models.Category)ViewBag.SelectedCategory == (TeamEnigma.Models.Category)c;
+                    <option value="@c" selected="@(isSelected ? "selected" : null)">@c</option>
+                }
+            </select>
+        </div>
+
+        <!-- Search Input -->
+        <div class="relative flex-1">
+            <input type="text" name="search" value="@ViewBag.SearchQuery" placeholder="Search by name or location"
+                   class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded-full w-full placeholder-[#FFF2F2]" />
+            <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#FFF2F2]">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Filters and Cart -->
+        <div class="flex items-center space-x-4">
+            <i class="fas fa-filter text-3xl text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full"></i>
+            <a asp-controller="Cart" asp-action="Index" class="text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full">
+                <i class="fas fa-shopping-cart text-3xl"></i>
+            </a>
+        </div>
+    </form>
 </div>
 
 
@@ -34,7 +75,7 @@
 
 @if (Model == null || !Model.Any())
 {
-    <div class="alert alert-warning" role="alert">
+    <div class="alert custom-alert" role="alert">
         You have no items listed. <a asp-action="Create">Click here</a> to list an item for sale!
     </div>
 }
