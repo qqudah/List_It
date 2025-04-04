@@ -25,6 +25,80 @@
                 .custom-alert a:hover {
                     text-decoration: underline;
                 }
+    /* Filter and Cart Icon Hover Effect */
+    .icon-button {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .icon-button:hover {
+            background-color: #6a78a9; /* Same as cart button hover */
+            color: white;
+        }
+    /* Popup Style */
+    .popup-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        visibility: hidden; /* Initially hidden */
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-in-out;
+    }
+
+        .popup-overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .popup-content h4 {
+            color: #2D336B;
+        }
+
+        .popup-content input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .popup-content button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+    .apply-button {
+        background-color: #2D336B;
+        transition: background-color 0.3s ease;
+    }
+
+        .apply-button:hover {
+            background-color: #6a78a9;
+        }
+
+    .cancel-button {
+        background-color: #7886C7;
+        transition: background-color 0.3s ease;
+    }
+
+        .cancel-button:hover {
+            background-color: #6a78a9;
+        }
     </style>
 
 
@@ -57,8 +131,8 @@
 
         <!-- Filters and Cart -->
         <div class="flex items-center space-x-4">
-            <i class="fas fa-filter text-3xl text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full"></i>
-            <a asp-controller="Cart" asp-action="Index" class="text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full">
+            <i id="filter-icon" class="fas fa-filter text-3xl text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full cursor-pointer icon-button" onclick="toggleFilterPopup()"></i>
+            <a asp-controller="Cart" asp-action="Index" class="text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full icon-button">
                 <i class="fas fa-shopping-cart text-3xl"></i>
             </a>
         </div>
@@ -118,3 +192,43 @@ else
         }
     </div>
 }
+<!-- Filter Popup -->
+<div id="filter-popup" class="popup-overlay">
+    <div class="popup-content">
+        <h4>Filter by Price</h4>
+        <form id="filter-form">
+            <div class="mb-4">
+                <label for="minPrice" class="block text-[#2D336B] mb-2">Min Price</label>
+                <input type="number" id="minPrice" name="minPrice" class="w-full py-2 px-4 border rounded" placeholder="Enter minimum price" min="0" />
+            </div>
+            <div class="mb-4">
+                <label for="maxPrice" class="block text-[#2D336B] mb-2">Max Price</label>
+                <input type="number" id="maxPrice" name="maxPrice" class="w-full py-2 px-4 border rounded" placeholder="Enter maximum price" min="0" />
+            </div>
+            <div class="flex justify-between items-center">
+                <button type="button" class="apply-button py-2 px-4 rounded-full" onclick="applyFilter()">Apply Filter</button>
+                <button type="button" class="cancel-button py-2 px-4 rounded-full" onclick="closeFilterPopup()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript for the Popup -->
+<script>
+    function toggleFilterPopup() {
+        const popup = document.getElementById('filter-popup');
+        popup.classList.toggle('show');
+    }
+    function closeFilterPopup() {
+        const popup = document.getElementById('filter-popup');
+        popup.classList.remove('show');
+    }
+    function applyFilter() {
+        const minPrice = document.getElementById('minPrice').value;
+        const maxPrice = document.getElementById('maxPrice').value;
+        // You can handle the logic for applying the filter here (such as triggering an Ajax call to the backend)
+        console.log('Min Price:', minPrice);
+        console.log('Max Price:', maxPrice);
+        closeFilterPopup();
+    }
+</script>
