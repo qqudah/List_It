@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+<<<<<<< Updated upstream
 <div class="w-full flex justify-between items-center px-8 mt-4">
     <div class="relative">
         <select class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded">
@@ -102,3 +103,269 @@
         }
     </tbody>
 </table>
+=======
+<style>
+    /* Custom Alert Style */
+    .custom-alert {
+        background-color: #A9B5DF; /* Custom yellow color */
+        color: #333333; /* Dark text for contrast */
+        border: 1px solid #2d336b; /* Darker yellow border */
+        padding: 15px;
+        border-radius: 5px;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        .custom-alert a {
+            color: #2d336b; /* A contrasting color for the link */
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+            .custom-alert a:hover {
+                text-decoration: underline;
+            }
+
+    /* Filter and Cart Icon Hover Effect */
+    .icon-button {
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .icon-button:hover {
+            background-color: #6a78a9; /* Same as cart button hover */
+            color: white;
+        }
+
+    /* Popup Style */
+    .popup-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        visibility: hidden; /* Initially hidden */
+        opacity: 0;
+        transition: visibility 0s, opacity 0.3s ease-in-out;
+    }
+
+        .popup-overlay.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 400px;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .popup-content h4 {
+            color: #2D336B;
+        }
+
+        .popup-content input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .popup-content button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+        }
+
+    .apply-button {
+        background-color: #2D336B;
+        transition: background-color 0.3s ease;
+    }
+
+        .apply-button:hover {
+            background-color: #6a78a9;
+        }
+
+    .cancel-button {
+        background-color: #7886C7;
+        transition: background-color 0.3s ease;
+    }
+
+        .cancel-button:hover {
+            background-color: #6a78a9;
+        }
+</style>
+
+<div class="w-full flex justify-between items-center px-8 mt-4">
+    <form asp-action="Index" method="get" class="flex w-full items-center space-x-4">
+
+        <!-- Category Dropdown -->
+        <div class="relative">
+            <select name="category" onchange="this.form.submit()" class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded">
+                <option value="">All Categories</option>
+                @foreach (var c in Enum.GetValues(typeof(TeamEnigma.Models.Category)))
+                {
+                    var isSelected = ViewBag.SelectedCategory != null && (TeamEnigma.Models.Category)ViewBag.SelectedCategory == (TeamEnigma.Models.Category)c;
+                    <option value="@c" selected="@(isSelected ? "selected" : null)">@c</option>
+                }
+            </select>
+        </div>
+
+        <!-- Search Input -->
+        <div class="relative flex-1">
+            <input type="text" name="search" value="@ViewBag.SearchQuery" placeholder="Search by name or location"
+                   class="bg-[#7886C7] text-[#FFF2F2] py-2 px-4 rounded-full w-full placeholder-[#FFF2F2]" />
+            <button type="submit" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#FFF2F2]">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+
+        <!-- Filters and Cart -->
+        <div class="flex items-center space-x-4">
+            <!-- Filter Icon -->
+            <i id="filter-icon" class="fas fa-filter text-3xl text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full cursor-pointer icon-button" onclick="toggleFilterPopup()"></i>
+
+            <!-- Cart Icon -->
+            <a asp-controller="Cart" asp-action="Index" class="text-[#2D336B] bg-[#FFF2F2] p-2 rounded-full icon-button">
+                <i class="fas fa-shopping-cart text-3xl"></i>
+            </a>
+        </div>
+    </form>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert custom-alert" role="alert">
+        No results found for your search.
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactNumber)
+                    </td>
+                    <td>
+                        <!-- Display the image -->
+                        <img src="@item.ImageUrl" alt="Image" style="max-width: 100px; max-height: 100px;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Id)
+                    </td>
+                    <td>
+
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <form asp-action="AddToCart" asp-controller="Cart" method="post" style="display:inline;">
+                            <input type="hidden" name="itemId" value="@item.Id" />
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!-- Filter Popup -->
+<div id="filter-popup" class="popup-overlay">
+    <div class="popup-content">
+        <h4>Filter by Price</h4>
+        <form id="filter-form">
+            <div class="mb-4">
+                <label for="minPrice" class="block text-[#2D336B] mb-2">Min Price</label>
+                <input type="number" id="minPrice" name="minPrice" class="w-full py-2 px-4 border rounded" placeholder="Enter minimum price" min="0" />
+            </div>
+            <div class="mb-4">
+                <label for="maxPrice" class="block text-[#2D336B] mb-2">Max Price</label>
+                <input type="number" id="maxPrice" name="maxPrice" class="w-full py-2 px-4 border rounded" placeholder="Enter maximum price" min="0" />
+            </div>
+            <div class="flex justify-between items-center">
+                <button type="button" class="apply-button py-2 px-4 rounded-full" onclick="applyFilter()">Apply Filter</button>
+                <button type="button" class="cancel-button py-2 px-4 rounded-full" onclick="closeFilterPopup()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- JavaScript for the Popup -->
+<script>
+    function toggleFilterPopup() {
+        const popup = document.getElementById('filter-popup');
+        popup.classList.toggle('show');
+    }
+
+    function closeFilterPopup() {
+        const popup = document.getElementById('filter-popup');
+        popup.classList.remove('show');
+    }
+
+    function applyFilter() {
+        const minPrice = document.getElementById('minPrice').value;
+        const maxPrice = document.getElementById('maxPrice').value;
+        // You can use JavaScript to submit the form or update the view based on the price filter.
+        console.log('Filter applied:', { minPrice, maxPrice });
+        closeFilterPopup();
+    }
+</script>
+>>>>>>> Stashed changes
