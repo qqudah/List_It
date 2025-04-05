@@ -1,45 +1,141 @@
-﻿ @model List<TeamEnigma.Models.CartItem>
+﻿@model List<TeamEnigma.Models.CartItem>
 
 @{
     ViewData["Title"] = "Shopping Cart";
+    var totalPrice = Model.Sum(ci => ci.TotalPrice);
 }
 
-<h1>Shopping Cart</h1>
+<style>
+    body {
+        background-color: #FFF2F2;
+    }
 
-@if (Model.Count == 0)
-{
-    <p>Your cart is empty.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cartItem in Model)
-            {
-                <tr>
-                    <td>@cartItem.Item.Name</td>
-                    <td>@cartItem.Item.Price</td>
-                    <td>@cartItem.Quantity</td>
-                    <td>@cartItem.TotalPrice</td>
-                    <td>
-                        <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
-                            <input type="hidden" name="itemId" value="@cartItem.ItemId" />
-                            <button type="submit" class="btn btn-danger">Remove</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    .cart-container {
+        max-width: 900px;
+        margin: 20px auto;
+    }
 
-    <h3>Total Price: @Model.Sum(ci => ci.TotalPrice)</h3>
-}
+    .cart-card {
+        background-color: #A9B5DF;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .cart-info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex: 1;
+    }
+
+        .cart-info img {
+            width: 80px;
+            height: 80px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+    .cart-text h4 {
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .cart-text p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #2D336B;
+    }
+
+    .cart-actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        min-width: 120px;
+    }
+
+    .price-qty {
+        font-weight: bold;
+        color: #000;
+        font-size: 1rem;
+        text-align: right;
+    }
+
+    .remove-btn {
+        background: none;
+        border: none;
+        color: red;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.9rem;
+        margin-top: 10px;
+    }
+
+    .checkout-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .checkout-btn {
+        background-color: #7886C7;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+
+    .total-box {
+        background-color: #A9B5DF;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+</style>
+
+<div class="cart-container">
+    @if (Model.Count == 0)
+    {
+        <p>Your cart is empty.</p>
+    }
+    else
+    {
+        <div class="checkout-row">
+            <form asp-action="Checkout" asp-controller="Cart" method="post">
+                <button type="submit" class="checkout-btn">Check Out</button>
+            </form>
+            <div class="total-box">
+                Total Price: $@totalPrice
+            </div>
+        </div>
+
+        @foreach (var cartItem in Model)
+        {
+            <div class="cart-card">
+                <div class="cart-info">
+                    <img src="@cartItem.Item.ImageUrl" alt="Item Image" />
+                    <div class="cart-text">
+                        <h4>@cartItem.Item.Name</h4>
+                        <p>@cartItem.Item.Description</p>
+                    </div>
+                </div>
+                <div class="cart-actions">
+                    <span class="price-qty">
+                        $@cartItem.TotalPrice <br />
+                        Quantity: @cartItem.Quantity
+                    </span>
+                    <form asp-action="RemoveFromCart" asp-controller="Cart" method="post">
+                        <input type="hidden" name="itemId" value="@cartItem.ItemId" />
+                        <button type="submit" class="remove-btn">Remove</button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+</div>
