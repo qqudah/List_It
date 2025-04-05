@@ -27,7 +27,7 @@ namespace TeamEnigma.Controllers
 
 
         // Common logic for search and category filtering
-        private IQueryable<Item> ApplyFilters(string search, Category? category)
+        private IQueryable<Item> ApplyFilters(string search, Category? category, decimal? minPrice, decimal? maxPrice)
         {
             var items = _context.Item.Include(i => i.User).AsQueryable();
 
@@ -44,11 +44,21 @@ namespace TeamEnigma.Controllers
                 items = items.Where(i => i.Category == category.Value);
             }
 
+            if (minPrice.HasValue)
+            {
+                items = items.Where(i => i.Price >= minPrice.Value);
+            }
+
+            if (maxPrice.HasValue)
+            {
+                items = items.Where(i => i.Price <= maxPrice.Value);
+            }
+
             return items;
         }
 
         // GET: Items/sell
-        public async Task<IActionResult> Sell(string search, Category? category)
+        public async Task<IActionResult> Sell(string search, Category? category, decimal? minPrice, decimal? maxPrice)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -57,23 +67,25 @@ namespace TeamEnigma.Controllers
             }
 
             // Apply filters and also ensure items belong to the logged-in user
-            var userItems = ApplyFilters(search, category)
+            var userItems = ApplyFilters(search, category,minPrice,maxPrice)
                             .Where(i => i.UserId == user.Id); // Filter by user ID
 
             ViewBag.SelectedCategory = category;
             ViewBag.SearchQuery = search;
-
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
             return View(await userItems.ToListAsync());
         }
 
         // GET: Items
-        public async Task<IActionResult> Index(string search, Category? category)
+        public async Task<IActionResult> Index(string search, Category? category, decimal? minPrice, decimal? maxPrice)
         {
-            var items = ApplyFilters(search, category); // Apply filters for general items
+            var items = ApplyFilters(search, category,minPrice,maxPrice); // Apply filters for general items
 
             ViewBag.SelectedCategory = category;
             ViewBag.SearchQuery = search;
-
+            ViewBag.MinPrice = minPrice;
+            ViewBag.MaxPrice = maxPrice;
             return View(await items.ToListAsync());
         }
 

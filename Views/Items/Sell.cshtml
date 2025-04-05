@@ -140,7 +140,7 @@
 </div>
 
 
-<h1 style="color: #2D336B;">Items you have Listed for sale</h1>
+<br />
 
 
 <p>
@@ -196,7 +196,7 @@ else
 <div id="filter-popup" class="popup-overlay">
     <div class="popup-content">
         <h4>Filter by Price</h4>
-        <form id="filter-form">
+        <form id="filter-form" method="get" asp-controller="Items" asp-action="Sell">
             <div class="mb-4">
                 <label for="minPrice" class="block text-[#2D336B] mb-2">Min Price</label>
                 <input type="number" id="minPrice" name="minPrice" class="w-full py-2 px-4 border rounded" placeholder="Enter minimum price" min="0" />
@@ -206,7 +206,7 @@ else
                 <input type="number" id="maxPrice" name="maxPrice" class="w-full py-2 px-4 border rounded" placeholder="Enter maximum price" min="0" />
             </div>
             <div class="flex justify-between items-center">
-                <button type="button" class="apply-button py-2 px-4 rounded-full" onclick="applyFilter()">Apply Filter</button>
+                <button type="submit" class="apply-button py-2 px-4 rounded-full">Apply Filter</button>
                 <button type="button" class="cancel-button py-2 px-4 rounded-full" onclick="closeFilterPopup()">Cancel</button>
             </div>
         </form>
@@ -222,13 +222,5 @@ else
     function closeFilterPopup() {
         const popup = document.getElementById('filter-popup');
         popup.classList.remove('show');
-    }
-    function applyFilter() {
-        const minPrice = document.getElementById('minPrice').value;
-        const maxPrice = document.getElementById('maxPrice').value;
-        // You can handle the logic for applying the filter here (such as triggering an Ajax call to the backend)
-        console.log('Min Price:', minPrice);
-        console.log('Max Price:', maxPrice);
-        closeFilterPopup();
     }
 </script>
