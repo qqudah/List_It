@@ -68,7 +68,7 @@ namespace TeamEnigma.Controllers
 
             // Apply filters and also ensure items belong to the logged-in user
             var userItems = ApplyFilters(search, category,minPrice,maxPrice)
-                            .Where(i => i.UserId == user.Id); // Filter by user ID
+                            .Where(i => i.UserId == user.Id); // Filter by user ID 
 
             ViewBag.SelectedCategory = category;
             ViewBag.SearchQuery = search;
@@ -80,7 +80,7 @@ namespace TeamEnigma.Controllers
         // GET: Items
         public async Task<IActionResult> Index(string search, Category? category, decimal? minPrice, decimal? maxPrice)
         {
-            var items = ApplyFilters(search, category,minPrice,maxPrice); // Apply filters for general items
+            var items = ApplyFilters(search, category,minPrice,maxPrice); // Apply filters for general items and search logic so the code can be reused
 
             ViewBag.SelectedCategory = category;
             ViewBag.SearchQuery = search;
